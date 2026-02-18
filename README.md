@@ -55,3 +55,7 @@ Educational medication support web app. **No diagnosis, no prescribing, no indiv
 ## Safety
 All AI responses include: `This is not medical advice. Consult a licensed clinician/pharmacist.`
 If emergency symptoms are detected (chest pain, trouble breathing, severe allergic reaction, stroke signs, suicidal thoughts, severe bleeding, overdose), the app shows an emergency banner and advises immediate care.
+
+
+## Prompt governance
+- Master system prompt reference: `docs/MASTER_PROMPT.md`

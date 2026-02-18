@@ -14,7 +14,16 @@ export const dictionary = {
     searchPlaceholder: "Search any drug or supplement",
     startNow: "Get started",
     footerTag: "Educational only",
-    loginRequired: "Login required for personal regimen context. Current answer is generic."
+    loginRequired: "Login required for personal regimen context. Current answer is generic.",
+
+    nextDoseDue: "Next dose due",
+    noRegimenYet: "No regimen yet",
+    myRegimen: "My Regimen",
+    adherence: "Adherence",
+    otcChecker: "OTC checker",
+    dueSchedules: "Due schedules",
+    reminders: "Reminders",
+    noPendingDoses: "No pending doses.",
   },
   tr: {
     brand: "MedAI",
@@ -29,7 +38,16 @@ export const dictionary = {
     searchPlaceholder: "Herhangi bir ilaç veya takviye ara",
     startNow: "Hemen başla",
     footerTag: "Sadece eğitim amaçlı",
-    loginRequired: "Kişisel bağlam için giriş yapmalısınız. Bu yanıt geneldir."
+    loginRequired: "Kişisel bağlam için giriş yapmalısınız. Bu yanıt geneldir.",
+
+    nextDoseDue: "Son doz zamanı",
+    noRegimenYet: "Henüz tedavi planı yok",
+    myRegimen: "Tedavi Planım",
+    adherence: "Uyum",
+    otcChecker: "OTC kontrolü",
+    dueSchedules: "Yaklaşan dozlar",
+    reminders: "Hatırlatmalar",
+    noPendingDoses: "Bekleyen doz yok.",
   },
   ku: {
     brand: "MedAI",
@@ -44,6 +62,15 @@ export const dictionary = {
     searchPlaceholder: "گەڕان بۆ هەر دەرمان یان پێکهاتەی یارمەتی",
     startNow: "ئێستا دەستپێبکە",
     footerTag: "تەنها بۆ مەبەستی فێرکاری",
-    loginRequired: "بۆ بەستێنی کەسی پێویستە بچیتە ژوورەوە. ئەم وەڵامە گشتییە."
+    loginRequired: "بۆ بەستێنی کەسی پێویستە بچیتە ژوورەوە. ئەم وەڵامە گشتییە.",
+
+    nextDoseDue: "کاتی دۆزی داهاتوو",
+    noRegimenYet: "هێشتا پلانێکی دەرمانت نییە",
+    myRegimen: "پلانی دەرمانەکەم",
+    adherence: "پابەندی",
+    otcChecker: "پشکنینی OTC",
+    dueSchedules: "کاتە دیاریکراوەکان",
+    reminders: "یاداورییەکان",
+    noPendingDoses: "هیچ دۆزێکی چاوەڕێکراو نییە.",
   }
 } as const;
