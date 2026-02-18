@@ -7,6 +7,8 @@ Educational medication support web app. **No diagnosis, no prescribing, no indiv
 - Prisma + PostgreSQL
 - NextAuth credentials auth
 - OpenAI Chat Completions (optional via `OPENAI_API_KEY`)
+- Multilingual UI (English, Turkish, Sorani Kurdish)
+- Hybrid drug search (local DB + openFDA fallback)
 
 ## Setup
 1. Install dependencies:
@@ -40,7 +42,7 @@ Educational medication support web app. **No diagnosis, no prescribing, no indiv
 - Password: `Admin123!`
 
 ## Key features
-- Medication search/details with source links
+- Medication/supplement search with source links and external openFDA fallback
 - My Regimen + schedule times
 - Reminder notifications and dose logging (Taken/Snooze/Missed)
 - Weekly adherence report + CSV export

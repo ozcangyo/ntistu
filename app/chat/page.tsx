@@ -1,13 +1,15 @@
 "use client";
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
+import { useLanguage } from "@/components/providers/LanguageProvider";
 
 export default function ChatPage() {
+  const { t } = useLanguage();
   const [message, setMessage] = useState("");
   const [response, setResponse] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  async function submitChat(e: React.FormEvent<HTMLFormElement>) {
+  async function submitChat(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
     setError(null);
@@ -48,7 +50,7 @@ export default function ChatPage() {
     </div>
 
     {response?.emergencyBanner && <div className="card bg-red-100 dark:bg-red-900/40 border-red-500"><b>{response.emergencyBanner}</b></div>}
-    {response?.requiresLoginForFullContext && <div className="card border-amber-400">Login required for personal regimen context. Current answer is generic.</div>}
+    {response?.requiresLoginForFullContext && <div className="card border-amber-400">{t("loginRequired")}</div>}
 
     {response && <div className="card whitespace-pre-wrap">
       <h2 className="font-semibold mb-2">Response</h2>
