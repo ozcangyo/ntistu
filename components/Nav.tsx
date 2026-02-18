@@ -1,17 +1,22 @@
-import Link from "next/link";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
+"use client";
 
-export default async function Nav() {
-  const session = await getServerSession(authOptions);
+import Link from "next/link";
+import ThemeToggle from "@/components/ThemeToggle";
+import { signOut } from "next-auth/react";
+
+export default function Nav({ role, email }: { role?: "USER" | "ADMIN"; email?: string | null }) {
   return (
-    <nav className="bg-white border-b">
+    <nav className="sticky top-0 z-20 border-b border-slate-200/70 dark:border-slate-800/70 bg-white/65 dark:bg-slate-950/60 backdrop-blur-xl">
       <div className="container-page flex gap-4 items-center">
-        <Link href="/" className="font-bold">MedAI</Link>
-        <Link href="/dashboard">Dashboard</Link>
-        <Link href="/chat">AI Doctor</Link>
-        {session?.user?.role === "ADMIN" && <Link href="/admin">Admin</Link>}
-        <div className="ml-auto text-sm text-slate-500">Educational only</div>
+        <Link href="/" className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-violet-600">MedAI</Link>
+        <Link href="/dashboard" className="hover:text-blue-600">Dashboard</Link>
+        <Link href="/chat" className="hover:text-blue-600">AI Doctor</Link>
+        {role === "ADMIN" && <Link href="/admin" className="hover:text-blue-600">Admin</Link>}
+        <div className="ml-auto flex items-center gap-2">
+          {email && <span className="badge">{email}</span>}
+          {email && <button className="px-3 py-1.5 rounded-xl border text-sm" onClick={() => signOut({ callbackUrl: "/" })}>Logout</button>}
+          <ThemeToggle />
+        </div>
       </div>
     </nav>
   );
