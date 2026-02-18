@@ -1,0 +1,156 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum DoseStatus {
+  PENDING
+  TAKEN
+  MISSED
+  SNOOZED
+}
+
+enum DoseAction {
+  TAKEN
+  MISSED
+  SNOOZED
+}
+
+enum NotificationType {
+  REMINDER
+  WARNING
+}
+
+enum InteractionKind {
+  DRUG_DRUG
+  DRUG_CLASS
+  OTC_CLASS
+}
+
+enum RiskLevel {
+  LOW
+  MODERATE
+  HIGH
+}
+
+enum SourceType {
+  url
+  doi
+}
+
+model User {
+  id              String              @id @default(cuid())
+  email           String              @unique
+  passwordHash    String
+  role            Role                @default(USER)
+  timezone        String              @default("UTC")
+  createdAt       DateTime            @default(now())
+  userMedications UserMedication[]
+  notifications   InAppNotification[]
+  adminLogs       AdminLog[]
+}
+
+model MedicationMaster {
+  id                  String           @id @default(cuid())
+  drugName            String
+  brandName           String?
+  activeIngredient    String
+  drugClass           String
+  indications         String
+  sideEffectsCommon   String
+  sideEffectsSerious  String
+  contraindications   String
+  warningsPregnancy   String
+  warningsRenal       String
+  warningsHepatic     String
+  isVisible           Boolean          @default(true)
+  createdAt           DateTime         @default(now())
+  updatedAt           DateTime         @updatedAt
+  sourceLinks         SourceLink[]
+  userMedications     UserMedication[]
+}
+
+model SourceLink {
+  id           String           @id @default(cuid())
+  medicationId String
+  type         SourceType
+  value        String
+  label        String?
+  medication   MedicationMaster @relation(fields: [medicationId], references: [id], onDelete: Cascade)
+}
+
+model UserMedication {
+  id             String           @id @default(cuid())
+  userId         String
+  medicationId   String
+  strength       String
+  frequency      String
+  scheduleTimes  String[]
+  withFood       Boolean
+  startDate      DateTime
+  user           User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  medication     MedicationMaster @relation(fields: [medicationId], references: [id], onDelete: Cascade)
+  doseSchedules  DoseSchedule[]
+}
+
+model DoseSchedule {
+  id               String         @id @default(cuid())
+  userMedicationId String
+  scheduledAt      DateTime
+  status           DoseStatus     @default(PENDING)
+  createdAt        DateTime       @default(now())
+  userMedication   UserMedication @relation(fields: [userMedicationId], references: [id], onDelete: Cascade)
+  doseLogs         DoseLog[]
+
+  @@unique([userMedicationId, scheduledAt])
+}
+
+model DoseLog {
+  id             String       @id @default(cuid())
+  doseScheduleId String
+  action         DoseAction
+  actionAt       DateTime     @default(now())
+  note           String?
+  doseSchedule   DoseSchedule @relation(fields: [doseScheduleId], references: [id], onDelete: Cascade)
+}
+
+model InAppNotification {
+  id        String           @id @default(cuid())
+  userId    String
+  type      NotificationType
+  title     String
+  body      String
+  createdAt DateTime         @default(now())
+  readAt    DateTime?
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model InteractionRule {
+  id             String          @id @default(cuid())
+  kind           InteractionKind
+  a              String
+  b              String
+  riskLevel      RiskLevel
+  mechanism      String
+  recommendation String
+}
+
+model AdminLog {
+  id          String   @id @default(cuid())
+  adminUserId String
+  action      String
+  entity      String
+  entityId    String
+  diffJson    Json
+  createdAt   DateTime @default(now())
+  adminUser   User     @relation(fields: [adminUserId], references: [id], onDelete: Cascade)
+}
