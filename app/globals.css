@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #f6f8ff;
+  --fg: #111827;
+}
+
+.dark {
+  --bg: #090d1b;
+  --fg: #e5e7eb;
+}
+
+body {
+  background: radial-gradient(circle at top right, #8b5cf655 0%, transparent 40%),
+    radial-gradient(circle at bottom left, #06b6d455 0%, transparent 40%),
+    var(--bg);
+  color: var(--fg);
+  @apply min-h-screen transition-colors duration-500;
+}
+
+.container-page { @apply max-w-6xl mx-auto px-4 py-6; }
+.card {
+  @apply rounded-2xl p-5 shadow-lg border backdrop-blur-md;
+  background: color-mix(in oklab, white 82%, transparent);
+  border-color: color-mix(in oklab, #cbd5e1 55%, transparent);
+}
+.dark .card {
+  background: color-mix(in oklab, #0f172a 78%, transparent);
+  border-color: color-mix(in oklab, #334155 60%, transparent);
+}
+.btn {
+  @apply px-4 py-2 rounded-xl text-sm font-medium text-white transition-transform duration-200 hover:scale-[1.02] active:scale-95;
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+}
+.input { @apply border rounded-xl px-3 py-2 w-full bg-white/80 dark:bg-slate-900/80 dark:border-slate-700; }
+.badge { @apply inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-200; }
